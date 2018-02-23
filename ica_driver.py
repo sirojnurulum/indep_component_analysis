@@ -3,16 +3,16 @@ import ica_adapter
 import show_results
 
 #which test case to run
-flag = 1
+flag = 0
 
 if flag  == 0:
-    s,x,n1,n2,mn,sd = create_inputs.createImg()
+    orig_images,mixed_images = create_inputs.createImg()
     icaimg = ica_adapter.ICA_Image();
-    y = icaimg.runICA(x)
-    show_results.showimg(s,x,y,n1,n2,mn,sd)
+    component_images = icaimg.runICA(mixed_images)
+    show_results.showimg(orig_images,mixed_images,component_images)
 else:
-    s,x = create_inputs.createSig()
+    orig_signals,mixed_signals = create_inputs.createSig()
     icasig = ica_adapter.ICA_Signal()
-    y = icasig.runICA(x)
-    show_results.showsig(s,x,y)
+    component_signals = icasig.runICA(mixed_signals)
+    show_results.showsig(orig_signals,mixed_signals,component_signals)
 
