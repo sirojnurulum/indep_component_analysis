@@ -1,6 +1,15 @@
 import numpy as np
 
 class ICA_Algorithm:
+    """
+    Container class for the method y=ica(x).
+    The input x is a d x n array of float, corresponding 
+    to d signals or images, each of which has n samples.
+    The output y is a d x n array of float, corresponding 
+    to d signal or images components, from which the inputs were made.
+    Each of the signal in y has been centered to zero mean and unit standard
+    deviation.
+    """
     def ica(self,x):
         d,n = x.shape
         maxiter = 20
