@@ -57,6 +57,32 @@ def showimg(orig_images,mixed_images,component_images):
 
 
 def showsig(orig_signals,mixed_signals,component_signals):
+    
+   #use original images to correct for ambiguous sign of component images
+    #first convert the images to arrays for forming dot product
+    d = len(orig_signals)
+    n = len(orig_signals[0])
+    s = np.zeros((d,n))
+    y = np.zeros((d,n))
+    for k in range(d):
+        s[k,:] = orig_signals[k]
+        y[k,:] = component_signals[k]
+    
+    #find the sign of the component relative to the best match original
+    ysgn = np.ones(d)
+    for k in range(d):
+        #find the original that corresponds to this component
+        ys_ind = np.argmax(np.abs(np.dot(y[k,:],s.T)))
+        #if the correlation is negative, set sign to -1 to correct 
+        if np.dot(y[k,:],s[ys_ind,:]) < 0:
+             ysgn[k] = -1
+      
+    #build list of component images with sign correction
+    corrected_components = []
+    for k in range(d):
+        corrected_components.append(ysgn[k]*component_signals[k])
+          
+    
     #set up grid of subplots, 3 x d, where each row is type of signal
     #(original, mixed, component) and each column is one of the signals in 
     #the list
@@ -74,7 +100,7 @@ def showsig(orig_signals,mixed_signals,component_signals):
                 plt.plot(mixed_signals[ind])
             elif sigtype == 2:
                 plt.title("component")
-                plt.plot(component_signals[ind])
+                plt.plot(corrected_components[ind])
  
     plt.show()
         

@@ -24,8 +24,7 @@ class ICA_Image(ICA_Adapter):
         #create output list of component
         component_images = []
         for k in range(d):
-            #ica centers and normalizes, so
-            #find out how to scale the output, assuming it has zero mean
+            #ica centers and normalizes, so scale output to make into an image
             yarr = np.reshape(y[k,:],(n1,n2))*64.0 + 127.0
             component_images.append(Image.fromarray(yarr))
     

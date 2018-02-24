@@ -71,11 +71,11 @@ def createSig():
     create 2 1-d signals: one a modulated sinusoid, the other filtered noise,
     and mix them
     """
-    n=100
+    n=1000
     s = np.zeros((2,n))
     t = np.arange(n)
-    s[0,:] = np.sin(2*np.pi*t/3)*np.sin(2*np.pi*t/30);
-    h = np.ones(3)/3.0
+    s[0,:] = np.sin(2*np.pi*t/50)*np.sin(2*np.pi*t/500);
+    h = 1.5*np.convolve(np.ones(30)/30.0,np.ones(20)/20,mode='full')
     s[1,:] = np.convolve(np.random.randn(n),h,mode='same')
     
     #mixing array
