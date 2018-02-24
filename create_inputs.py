@@ -74,12 +74,12 @@ def createSig():
     n=1000
     s = np.zeros((2,n))
     t = np.arange(n)
-    s[0,:] = np.sin(2*np.pi*t/50)*np.sin(2*np.pi*t/500);
-    h = 1.5*np.convolve(np.ones(30)/30.0,np.ones(20)/20,mode='full')
+    s[0,:] = np.sin(2*np.pi*t/50)*np.sin(2*np.pi*t/600);
+    h = 1.75*np.convolve(np.ones(30)/30.0,np.ones(20)/20,mode='full')
     s[1,:] = np.convolve(np.random.randn(n),h,mode='same')
     
     #mixing array
-    a = np.array([[1, 0.5], [1.75, -2]])
+    a = np.array([[1, 0.75], [1.75, -2]])
     x = np.dot(a,s)
     
     #create lists of original and mixed signals (1d numpy arrays)
